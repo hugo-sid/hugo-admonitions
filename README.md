@@ -53,12 +53,31 @@ Use the blockquote in this way:
 ```markdown
 > [!NOTIFY]
 > System notification: Your password will expire in 30 days.
-
 ```
 
 ![usage-1](./usage-1.png)
 
-Or you can customize the title:
+Available callouts:
+
+- `[!TIP]`
+- `[!NOTIFY]`
+- `[!SUCCESS]`
+- `[!WARNING]`
+- `[!DANGER]`
+- `[!ERROR]`
+- `[!TASK]`
+- `[!ABSTRACT]`
+- `[!CONCLUSION]`
+- `[!MEMO]`
+- `[!QUESTION]`
+- `[!QUOTE]`
+- `[!EXAMPLE]`
+- `[!EXPERIMENT]`
+- `[!GOAL]`
+- `[!CODE]`
+- `[!IDEA]`
+
+Or you can customize the title by using any of them:
 
 ```markdown
 > [!TIP] Summary
