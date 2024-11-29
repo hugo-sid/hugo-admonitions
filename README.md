@@ -4,6 +4,15 @@ Simple admonitions for hugo.
 
 Inspire from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish/)
 
+
+## Features ✨
+
+- Various beautiful and simple callout available 🎨
+- Dark mode support 🌙
+- Blockquote style 💬
+  - Portable Markdown style (GitHub, Obsidian, Typora, etc.) 📝
+
+
 ## Overview of all admonitions
 
 ### Light Mode
@@ -39,22 +48,21 @@ git clone git@github.com:KKKZOZ/hugo-admonitions.git themes/hugo-admonitions
 
 ## Usage
 
-Use the shortcode in this way:
+Use the blockquote in this way:
 
-```go
-{{< notice notify >}}
-System notification: Your password will expire in 30 days.
-{{< /notice >}}
+```markdown
+> [!NOTIFY]
+> System notification: Your password will expire in 30 days.
+
 ```
 
 ![usage-1](./usage-1.png)
 
 Or you can customize the title:
 
-```go
-{{< notice tip summary >}}
-This is a summary!
-{{< /notice >}}
+```markdown
+> [!TIP] Summary
+> This is a summary using the tip theme!
 ```
 
 ![usage-2](./usage-2.png)

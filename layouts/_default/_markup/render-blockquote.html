@@ -1,0 +1,35 @@
+{{/* layouts/_default/_markup/render-blockquote.html */}}
+{{- if not ($.Page.Scratch.Get "notice-style-loaded-flag") -}}
+    {{ $notice := resources.Get "css/notice.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $notice.RelPermalink }}" integrity="{{ $notice.Data.Integrity }}">
+    {{- $.Page.Scratch.Set "notice-style-loaded-flag" true -}}
+{{- end -}}
+
+{{ $type := "" }}
+{{ $title := "" }}
+
+{{/* Check if this is an alert blockquote */}}
+{{ if eq .Type "alert" }}
+    {{ $type = lower .AlertType }}
+    {{ $title = .AlertTitle }}
+{{ end }}
+
+{{ if $type }}
+<div class="notice {{ $type }}">
+    <div class="notice-header">
+        {{ partial (printf "icons/%s.svg" $type) . }}
+        {{ with $title }}
+            {{ . }}
+        {{ else }}
+            {{ title $type }}
+        {{ end }}
+    </div>
+    <div class="notice-content">
+        {{ .Text }}
+    </div>
+</div>
+{{ else }}
+<blockquote>
+    {{ .Text }}
+</blockquote>
+{{ end }}
