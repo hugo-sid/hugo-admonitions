@@ -1,8 +1,8 @@
 {{/* layouts/_default/_markup/render-blockquote-alert.html */}}
-{{- if not ($.Page.Scratch.Get "notice-style-loaded-flag") -}}
+{{- if not ($.Page.Store.Get "notice-style-loaded-flag") -}}
     {{ $notice := resources.Get "css/notice.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $notice.RelPermalink }}" integrity="{{ $notice.Data.Integrity }}">
-    {{- $.Page.Scratch.Set "notice-style-loaded-flag" true -}}
+    {{- $.Page.Store.Set "notice-style-loaded-flag" true -}}
 {{- end -}}
 
 {{ $type := "" }}

@@ -116,6 +116,8 @@ git clone git@github.com:KKKZOZ/hugo-admonitions.git themes/hugo-admonitions
 
 ## Usage
 
+> See [callout-demo.md](./callout-demo.md) for complete callout usage examples
+
 Use the blockquote in this way:
 
 ```markdown
