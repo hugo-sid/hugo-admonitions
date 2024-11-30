@@ -1,4 +1,4 @@
-{{/* layouts/_default/_markup/render-blockquote.html */}}
+{{/* layouts/_default/_markup/render-blockquote-alert.html */}}
 {{- if not ($.Page.Scratch.Get "notice-style-loaded-flag") -}}
     {{ $notice := resources.Get "css/notice.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $notice.RelPermalink }}" integrity="{{ $notice.Data.Integrity }}">
@@ -7,11 +7,18 @@
 
 {{ $type := "" }}
 {{ $title := "" }}
+{{ $content := "" }}
 
 {{/* Check if this is an alert blockquote */}}
 {{ if eq .Type "alert" }}
-    {{ $type = lower .AlertType }}
+    {{ $type = .AlertType }}
     {{ $title = .AlertTitle }}
+    {{ $content = .Text }}
+{{ end }}
+
+{{/* Fallback to note if type is not supported */}}
+{{ if not (templates.Exists (printf "partials/icons/%s.svg" $type)) }}
+    {{ $type = "note" }}
 {{ end }}
 
 {{ if $type }}
@@ -21,12 +28,20 @@
         {{ with $title }}
             {{ . }}
         {{ else }}
-            {{ title $type }}
+            {{/* Check if translation exists */}}
+            {{ if T $type | eq $type }}
+                {{/* If no translation found, capitalize the type */}}
+                {{ title $type }}
+            {{ else }}
+                {{ T $type }}
+            {{ end }}
         {{ end }}
     </div>
-    <div class="notice-content">
-        {{ .Text }}
-    </div>
+    {{ if ne $content "<p>" }}
+        <div class="notice-content">
+            {{ $content }}
+        </div>
+    {{ end }}
 </div>
 {{ else }}
 <blockquote>

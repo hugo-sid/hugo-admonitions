@@ -280,3 +280,33 @@ body.dark .notice-content blockquote {
     background: rgba(223, 142, 29, 0.1);
     color: #df8e1d;
 }
+
+/* Note */
+.notice.note {
+    background: transparent;
+    border-left: 4px solid #0966D8;  
+}
+.notice.note .notice-header {
+    background: rgba(9, 102, 216, 0.1);
+    color: #0966D8;
+}
+
+/* Important */
+.notice.important {
+    background: transparent;
+    border-left: 4px solid #7D4DDA;
+}
+.notice.important .notice-header {
+    background: rgba(125, 77, 218, 0.1);
+    color: #7D4DDA;
+}
+
+/* Caution */
+.notice.caution {
+    background: transparent;
+    border-left: 4px solid #e64553;
+}
+.notice.caution .notice-header {
+    background: rgba(230, 69, 83, 0.1);
+    color: #e64553;
+}
