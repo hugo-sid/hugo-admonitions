@@ -1,50 +1,25 @@
-{{/* layouts/_default/_markup/render-blockquote-alert.html */}}
-{{- if not ($.Page.Store.Get "notice-style-loaded-flag") -}}
-    {{ $notice := resources.Get "css/notice.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $notice.RelPermalink }}" integrity="{{ $notice.Data.Integrity }}">
-    {{- $.Page.Store.Set "notice-style-loaded-flag" true -}}
-{{- end -}}
+{{- /* layouts/_default/_markup/render-blockquote-alert.html */}}
+{{- if not (.Page.Store.Get "notice-style-loaded-flag") }}
+    {{- with resources.Get "css/admonitions/style.css" | minify | fingerprint }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{- end }}
+    {{- .Page.Store.Set "notice-style-loaded-flag" true }}
+{{- end }}
 
-{{ $type := "" }}
-{{ $title := "" }}
-{{ $content := "" }}
+{{- $type := "note" }}
+{{- if templates.Exists (printf "partials/admonitions/icons/%s.svg" .AlertType) }}
+  {{- $type = .AlertType }}
+{{- end }}
 
-{{/* Check if this is an alert blockquote */}}
-{{ if eq .Type "alert" }}
-    {{ $type = .AlertType }}
-    {{ $title = .AlertTitle }}
-    {{ $content = .Text }}
-{{ end }}
-
-{{/* Fallback to note if type is not supported */}}
-{{ if not (templates.Exists (printf "partials/icons/%s.svg" $type)) }}
-    {{ $type = "note" }}
-{{ end }}
-
-{{ if $type }}
 <div class="notice {{ $type }}">
     <div class="notice-header">
-        {{ partial (printf "icons/%s.svg" $type) . }}
-        {{ with $title }}
-            {{ . }}
-        {{ else }}
-            {{/* Check if translation exists */}}
-            {{ if T $type | eq $type }}
-                {{/* If no translation found, capitalize the type */}}
-                {{ title $type }}
-            {{ else }}
-                {{ T $type }}
-            {{ end }}
-        {{ end }}
+        {{- partial (printf "admonitions/icons/%s.svg" $type) }}
+        {{- or .AlertTitle (T .AlertType) (title .AlertType) }}
     </div>
-    {{ if ne $content "<p>" }}
+    {{- /* See https://github.com/gohugoio/hugo/issues/12913. */}}
+    {{- if ne .Text "<p>" }}
         <div class="notice-content">
-            {{ $content }}
+            {{ .Text }}
         </div>
-    {{ end }}
+    {{- end }}
 </div>
-{{ else }}
-<blockquote>
-    {{ .Text }}
-</blockquote>
-{{ end }}
