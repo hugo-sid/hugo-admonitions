@@ -5,6 +5,7 @@ A lightweight Hugo module that adds beautiful and customizable admonition blocks
 Inspire from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish/)
 
 ## Table of Contents
+
 - [hugo-admonitions](#hugo-admonitions)
   - [Table of Contents](#table-of-contents)
   - [Features ✨](#features-)
@@ -24,18 +25,19 @@ Inspire from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish/)
 - Various beautiful and simple callout available 🎨
 - Blockquote style 💬
   - Portable Markdown style (GitHub, Obsidian, Typora, etc.) 📝
+
   - ```md
     > [!WARNING]
     > Warning: This operation will delete all data.
     ```
+
 - Dark mode support 🌙
 - Header Only Mode 📑
 - Multi-language support 🌐
   - English
-  - 简体中文
-  - More languages coming soon...
-
-
+  - Chinese
+  - Swahili
+  - [Contribute with a new language](https://github.com/KKKZOZ/hugo-admonitions/pulls)
 
 ## Overview of all admonitions
 
@@ -84,7 +86,6 @@ With `hugo.toml`:
     path = "my-theme"
 ```
 
-
 4. Finally update by running:
 
 ```shell
@@ -97,7 +98,6 @@ hugo mod get -u
 
 ```bash
 git clone git@github.com:KKKZOZ/hugo-admonitions.git themes/hugo-admonitions
-
 ```
 
 2. Add `hugo-admonitions` as the left-most element of the theme list variable in your site's or theme's configuration file `hugo.yam`l or `hugo.toml`.
@@ -129,26 +129,26 @@ Use the blockquote in this way:
 
 Available callouts:
 
-- `[!NOTE]`
-- `[!TIP]`
-- `[!IMPORTANT]`
-- `[!WARNING]`
+- `[!ABSTRACT]`
 - `[!CAUTION]`
-- `[!NOTIFY]`
-- `[!SUCCESS]`
+- `[!CODE]`
+- `[!CONCLUSION]`
 - `[!DANGER]`
 - `[!ERROR]`
-- `[!TASK]`
-- `[!ABSTRACT]`
-- `[!CONCLUSION]`
-- `[!MEMO]`
-- `[!QUESTION]`
-- `[!QUOTE]`
 - `[!EXAMPLE]`
 - `[!EXPERIMENT]`
 - `[!GOAL]`
-- `[!CODE]`
 - `[!IDEA]`
+- `[!IMPORTANT]`
+- `[!MEMO]`
+- `[!NOTE]`
+- `[!NOTIFY]`
+- `[!QUESTION]`
+- `[!QUOTE]`
+- `[!SUCCESS]`
+- `[!TASK]`
+- `[!TIP]`
+- `[!WARNING]`
 
 > [!NOTE]
 > Unsupported callout types will default to `[!NOTE]`
