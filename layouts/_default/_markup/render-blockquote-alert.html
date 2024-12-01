@@ -1,25 +1,54 @@
 {{- /* layouts/_default/_markup/render-blockquote-alert.html */}}
+
+{{- /* Render link element once per page. */}}
 {{- if not (.Page.Store.Get "notice-style-loaded-flag") }}
-    {{- with resources.Get "css/admonitions/style.css" | minify | fingerprint }}
-      <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
-    {{- end }}
-    {{- .Page.Store.Set "notice-style-loaded-flag" true }}
+  {{- with resources.Get "css/admonitions/style.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{- end }}
+  {{- .Page.Store.Set "notice-style-loaded-flag" true }}
 {{- end }}
 
-{{- $type := "note" }}
-{{- if templates.Exists (printf "partials/admonitions/icons/%s.svg" .AlertType) }}
-  {{- $type = .AlertType }}
-{{- end }}
+{{- /* Map alert type to icon in layouts/partials/admonitions/icons. */}}
+{{- $icons := dict
+  "abstract"    "file-lines-solid.svg"
+  "caution"     "triangle-exclamation-solid.svg"
+  "code"        "code-solid.svg"
+  "conclusion"  "file-circle-check-solid.svg"
+  "danger"      "triangle-exclamation-solid.svg"
+  "error"       "circle-xmark-solid.svg"
+  "example"     "person-chalkboard-solid.svg"
+  "experiment"  "flask-solid.svg"
+  "goal"        "bullseye-solid.svg"
+  "idea"        "lightbulb-solid.svg"
+  "important"   "circle-exclamation-solid.svg"
+  "info"        "circle-info-solid.svg"
+  "memo"        "file-lines-solid.svg"
+  "note"        "file-pen-solid.svg"
+  "notify"      "bell-solid.svg"
+  "question"    "circle-question-solid.svg"
+  "quote"       "quote-right-solid.svg"
+  "success"     "circle-check-solid.svg"
+  "task"        "list-check-solid.svg"
+  "tip"         "lightbulb-solid.svg"
+  "warning"     "triangle-exclamation-solid.svg"
+}}
 
-<div class="notice {{ $type }}">
+{{- /* Render admonition. */}}
+{{- $type := cond (index $icons .AlertType) .AlertType "note" }}
+{{- $partial := printf "admonitions/icons/%s" (index $icons $type) }}
+{{- if templates.Exists (printf "partials/%s" $partial) }}
+  <div class="notice {{ $type }}">
     <div class="notice-header">
-        {{- partial (printf "admonitions/icons/%s.svg" $type) }}
-        {{- or .AlertTitle (T .AlertType) (title .AlertType) }}
+      {{- partialCached $partial . }}
+      {{- or .AlertTitle (T .AlertType) (title .AlertType) }}
     </div>
     {{- /* See https://github.com/gohugoio/hugo/issues/12913. */}}
     {{- if ne .Text "<p>" }}
-        <div class="notice-content">
-            {{ .Text }}
-        </div>
+      <div class="notice-content">
+        {{ .Text }}
+      </div>
     {{- end }}
-</div>
+  </div>
+{{- else }}
+  {{- errorf "The blockquote-alert render hook was unable to find layouts/partials/%s." $partial }}
+{{- end }}
