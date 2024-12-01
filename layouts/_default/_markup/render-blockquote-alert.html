@@ -2,7 +2,7 @@
 
 {{- /* Render link element once per page. */}}
 {{- if not (.Page.Store.Get "notice-style-loaded-flag") }}
-  {{- with resources.Get "css/admonitions/style.css" | minify | fingerprint }}
+  {{- with resources.Get "css/admonitions/style.scss" | toCSS | minify | fingerprint }}
     <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
   {{- end }}
   {{- .Page.Store.Set "notice-style-loaded-flag" true }}
