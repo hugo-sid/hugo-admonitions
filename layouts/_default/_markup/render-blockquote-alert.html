@@ -40,7 +40,7 @@
   <div class="notice {{ $type }}">
     <div class="notice-header">
       {{- partialCached $partial . }}
-      {{- or .AlertTitle (T .AlertType) (title .AlertType) }}
+      {{- or .AlertTitle (T (printf "admonitions.%s" .AlertType)) (title .AlertType) }}
     </div>
     {{- /* See https://github.com/gohugoio/hugo/issues/12913. */}}
     {{- if ne .Text "<p>" }}
