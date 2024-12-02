@@ -1,9 +1,22 @@
 {{- /* layouts/_default/_markup/render-blockquote-alert.html */}}
 
-{{- /* Render link element once per page. */}}
+{{- /* Transpile Sass to CSS and render the link element once per page. */}}
 {{- if not (.Page.Store.Get "admonition-style-loaded-flag") }}
-  {{- with resources.Get "css/admonitions/style.scss" | toCSS | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{- with resources.Get "sass/vendors/_admonitions.scss" }}
+    {{- $opts := dict
+      "enableSourceMap" (not hugo.IsProduction)
+      "outputStyle" (cond hugo.IsProduction "compressed" "expanded")
+      "targetPath" "css/vendors/admonitions.css"
+    }}
+    {{- with . | toCSS $opts }}
+      {{- if hugo.IsProduction }}
+        {{- with . | fingerprint }}
+          <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+        {{- end }}
+      {{- else }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}">
+      {{- end }}
+    {{- end }}
   {{- end }}
   {{- .Page.Store.Set "admonition-style-loaded-flag" true }}
 {{- end }}
