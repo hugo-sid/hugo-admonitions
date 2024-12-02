@@ -1,5 +1,5 @@
-// Base colors for notice types
-$notice-colors: (
+// Base colors for admonition types
+$admonition-colors: (
   abstract:   #209fb5,
   caution:    #e64553,
   code:       #7287fd,
@@ -35,15 +35,15 @@ $dark-code-text: #cdd6f4;
 $light-blockquote-border: #e0e0e0;
 $dark-blockquote-border: #45475a;
 
-// Base notice styles
-.notice {
+// Base admonition styles
+.admonition {
   margin: 1rem 0;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   transition: all 0.3s ease;
 }
 
-.notice-header {
+.admonition-header {
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
@@ -60,7 +60,7 @@ $dark-blockquote-border: #45475a;
   }
 }
 
-.notice-content {
+.admonition-content {
   padding: 1rem;
   background-color: $light-bg;
   border-radius: 0 0 4px 4px;
@@ -96,7 +96,7 @@ $dark-blockquote-border: #45475a;
 
 // Dark mode styles
 @media (prefers-color-scheme: dark) {
-  .notice-content {
+  .admonition-content {
     background-color: $dark-bg;
     color: $dark-text;
 
@@ -113,7 +113,7 @@ $dark-blockquote-border: #45475a;
 }
 
 body.dark {
-  .notice-content {
+  .admonition-content {
     background-color: $dark-bg;
     color: $dark-text;
 
@@ -129,13 +129,13 @@ body.dark {
   }
 }
 
-// Generate notice types
-@each $type, $color in $notice-colors {
-  .notice.#{$type} {
+// Generate admonition types
+@each $type, $color in $admonition-colors {
+  .admonition.#{$type} {
     background: transparent;
     border-left: 4px solid $color;
     
-    .notice-header {
+    .admonition-header {
       background: rgba($color, 0.1);
       color: $color;
     }
