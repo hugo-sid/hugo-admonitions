@@ -52,13 +52,12 @@
 {{- if templates.Exists (printf "partials/%s" $partial) }}
   <div class="admonition {{ $type }}">
     <div class="admonition-header">
-      {{- partialCached $partial . }}
-      {{- or .AlertTitle (T (printf "admonitions.%s" .AlertType)) (title .AlertType) }}
+      {{ partialCached $partial . }}
+      <span>{{ or .AlertTitle (T (printf "admonitions.%s" .AlertType)) (title .AlertType) }}</span>
     </div>
-    {{- /* See https://github.com/gohugoio/hugo/issues/12913. */}}
-    {{- if ne .Text "<p>" }}
+    {{- with .Text }}
       <div class="admonition-content">
-        {{ .Text }}
+        {{ . }}
       </div>
     {{- end }}
   </div>
