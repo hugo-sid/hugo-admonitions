@@ -35,8 +35,9 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
 - Multi-language support 🌐
   - English
   - Chinese
-  - Swahili
+  - French
   - German
+  - Swahili
   - [Localization PRs are always welcome!](https://github.com/KKKZOZ/hugo-admonitions/pulls)
 
 ## Overview of all admonitions
