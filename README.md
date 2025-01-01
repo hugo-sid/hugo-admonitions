@@ -1,4 +1,4 @@
-# hugo-admonitions
+# Hugo-admonitions
 
 A lightweight Hugo module that adds beautiful and customizable admonition blocks to your content.
 
@@ -57,6 +57,9 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
 </div>
 
 ## Installation
+
+> [!IMPORTANT]
+> This modules requires Hugo `v0.140.0` or later.
 
 ### Hugo Module
 
