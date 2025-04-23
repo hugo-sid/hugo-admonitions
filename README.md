@@ -4,20 +4,25 @@ A lightweight Hugo module that adds beautiful and customizable admonition blocks
 
 Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish/).
 
+> [!IMPORTANT]
+> The minimum required Hugo version is `0.140.0`. If you find that features work correctly locally but not on your deployed GitHub Pages site (e.g., admonition colors are wrong), the most likely reason is that the `HUGO_VERSION` specified in your GitHub Actions workflow file (usually under `.github/workflows/`) is lower than `0.140.0`. Please update it in your workflow's build step.
+
 ## Table of Contents
 
-- [Features ✨](#features-)
-- [Overview of all admonitions](#overview-of-all-admonitions)
-  - [Light Mode](#light-mode)
-  - [Dark Mode](#dark-mode)
-  - [Header Only Mode](#header-only-mode)
-- [Installation](#installation)
-  - [Hugo Module](#hugo-module)
-  - [Git Clone](#git-clone)
-- [Usage](#usage)
-- [Customization](#customization)
-- [Contributing](#contributing)
-- [License](#license)
+- [Hugo-admonitions](#hugo-admonitions)
+  - [Table of Contents](#table-of-contents)
+  - [Features ✨](#features-)
+  - [Overview of all admonitions](#overview-of-all-admonitions)
+    - [Light Mode](#light-mode)
+    - [Dark Mode](#dark-mode)
+    - [Header Only Mode](#header-only-mode)
+  - [Installation](#installation)
+    - [Hugo Module](#hugo-module)
+    - [Git Clone](#git-clone)
+  - [Usage](#usage)
+  - [Customization](#customization)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Features ✨
 
