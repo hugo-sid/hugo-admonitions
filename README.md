@@ -5,7 +5,7 @@ A lightweight Hugo module that adds beautiful and customizable admonition blocks
 Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish/).
 
 > [!IMPORTANT]
-> The minimum required Hugo version is `0.140.0`. If you find that features work correctly locally but not on your deployed GitHub Pages site (e.g., admonition colors are wrong), the most likely reason is that the `HUGO_VERSION` specified in your GitHub Actions workflow file (usually under `.github/workflows/`) is lower than `0.140.0`. Please update it in your workflow's build step.
+> The minimum required Hugo version is `0.140.0`. If you find that features work correctly locally but not on your deployed GitHub Pages site (e.g., admonition colors are wrong), the most likely reason is that the `HUGO_VERSION` specified in your GitHub Actions workflow file (usually under `.github/workflows/`) is lower than `0.140.0`.
 
 ## Table of Contents
 
@@ -21,6 +21,8 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
     - [Git Clone](#git-clone)
   - [Usage](#usage)
   - [Customization](#customization)
+    - [Admonition Colors](#admonition-colors)
+    - [Dark Mode Support](#dark-mode-support)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -225,6 +227,65 @@ Please follow the instructions below to override the default styles.
 
 2. Copy the contents of the [source file] into the file you created.
 3. Update the styles as needed.
+
+### Admonition Colors
+
+The colors can easily updated by changing the first part of the file
+
+> With clear comments!
+
+```scss
+// --- Theme Colors ---
+// Define the colors used for admonition elements in both light and dark modes.
+
+// Light Mode Colors
+$admonition-light-bg: #ffffff !default; // Content background
+$admonition-light-text: #000000 !default; // Content text
+$admonition-light-code-bg: #f5f5f5 !default; // Inline code & code block background
+$admonition-light-code-text: #24292e !default; // Inline code & code block text
+$admonition-light-blockquote-border: #e0e0e0 !default; // Blockquote left border
+
+// Dark Mode Colors
+$admonition-dark-bg: #1d1e20 !default; // Content background
+$admonition-dark-text: #e6e6e6 !default; // Content text
+$admonition-dark-code-bg: #313244 !default; // Inline code & code block background
+$admonition-dark-code-text: #cdd6f4 !default; // Inline code & code block text
+$admonition-dark-blockquote-border: #45475a !default; // Blockquote left border
+
+// --- Header Background Opacity ---
+// Controls the opacity of the background color tint in the header.
+// Value should be between 0 (transparent) and 1 (opaque).
+$admonition-light-header-bg-opacity: 0.1 !default; // Opacity for light mode header background
+$admonition-dark-header-bg-opacity: 0.1 !default; // Opacity for dark mode header background (can be same or different)
+```
+
+### Dark Mode Support
+
+By default, `hugo-admonitions` attempts to automatically detect and apply dark mode styling to match your website's theme.
+
+**How it Works:**
+
+Instead of relying on the operating system's preference (`prefers-color-scheme`), this module checks for the presence of specific CSS selectors on your `<html>` or `<body>` tags. The default configuration looks for a wide range of common selectors used by popular Hugo themes and CSS frameworks:
+
+- `html[data-theme="dark"]`, `body[data-theme="dark"]`
+- `html[data-bs-theme="dark"]`
+- `html[data-scheme="dark"]`, `body[data-scheme="dark"]`
+- `html[data-color-mode="dark"]`, `body[data-color-mode="dark"]`
+- `body.dark`, `body.dark-mode`, `body.theme-dark`
+- `html.dark`, `html.dark-mode`
+
+This list is defined by the `$admonition-dark-selector` variable within the module's SCSS file.
+
+**When Customization is Needed:**
+
+If your theme uses a *different* CSS class or data attribute not included in the default list above, the admonition blocks might remain in light mode even when your site switches to dark mode.
+
+**How to Customize the Dark Mode Trigger:**
+
+You can easily tell `hugo-admonitions` which selector(s) your theme uses by overriding the `$admonition-dark-selector` SCSS variable.
+
+> [!NOTE] Need Help?
+> If you encounter difficulties getting dark mode to work correctly with your specific theme, even after following these steps, or if anything in this guide is unclear, please don't hesitate to **open an [issue](https://github.com/KKKZOZ/hugo-admonitions/issues/new)**!
 
 [source file]: https://github.com/KKKZOZ/hugo-admonitions/blob/main/assets/sass/vendors/_admonitions.scss
 
