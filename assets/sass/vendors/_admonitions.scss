@@ -250,3 +250,74 @@ $admonition-colors: (
     }
   }
 }
+
+// =============================================================================
+// --- Custom Admonition Folding Marker (Placed at the End) ---
+// =============================================================================
+
+.admonition {
+  // Target the summary element only when it's a direct child of a foldable admonition (<details>)
+  & > summary {
+    list-style: none; /* For Firefox */
+    &::-webkit-details-marker {
+      /* For Chrome, Safari, Edge */
+      display: none;
+    }
+
+    cursor: pointer;
+
+    &::after {
+      content: ">"; /* Use a simple chevron character */
+      display: inline-block; /* Allows transforms and margins */
+      font-weight: bold;
+      // Use margin-left to add space BEFORE the indicator (after the text)
+      margin-left: 0.6em; /* Adjust spacing as needed */
+      transition: transform 0.2s ease-in-out; /* Smooth rotation */
+      transform-origin: center; /* Rotate around the center */
+      // Inherit the color from the summary text
+      color: currentColor;
+      // Optional: Adjust vertical alignment if needed
+      // vertical-align: middle;
+    }
+
+    & > span {
+      // Prevent the title span from growing and pushing the ::after pseudo-element
+      flex-grow: 0;
+    }
+  }
+
+  &[open] > summary::after {
+    transform: rotate(90deg); /* Rotate the chevron down */
+  }
+}
+
+// --- Optional: Using SVG Icon Instead ---
+/*
+.admonition {
+  & > summary {
+    list-style: none;
+    &::-webkit-details-marker { display: none; }
+    cursor: pointer;
+
+    &::after { // Use ::after
+      content: "";
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-left: 0.6em; // Use margin-left
+      background-color: currentColor;
+      mask-image: url("path/to/your/chevron-right.svg");
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      transition: transform 0.2s ease-in-out;
+      transform-origin: center;
+      vertical-align: middle;
+    }
+  }
+
+  &[open] > summary::after { // Target ::after
+    transform: rotate(90deg);
+  }
+}
+*/

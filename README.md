@@ -16,6 +16,7 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
     - [Light Mode](#light-mode)
     - [Dark Mode](#dark-mode)
     - [Header Only Mode](#header-only-mode)
+    - [Foldable Admonitions](#foldable-admonitions)
   - [Installation](#installation)
     - [Hugo Module](#hugo-module)
     - [Git Clone](#git-clone)
@@ -37,9 +38,10 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
     > Warning: This operation will delete all data.
     ```
 
-- Dark mode support 🌙
+- Dark Mode Support 🌙
 - Header Only Mode 📑
-- Multi-language support 🌐
+- Foldable Admonitions 📂
+- Multi-language Support 🌐
   - English
   - Chinese
   - French
@@ -62,6 +64,10 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
 <div align="center">
   <img src="docs/assets/images/header-only-mode.png" width="500" alt="header-only-mode">
 </div>
+
+### Foldable Admonitions
+
+![foldable-admonition-overview](docs/assets/images/foldable-admonition-overview.png)
 
 ## Installation
 
@@ -201,6 +207,16 @@ Use the Header Only mode by including a title only:
 ```
 
 ![usage-4](docs/assets/images/usage-4.png)
+
+Use the [extended syntax](https://gohugo.io/render-hooks/blockquotes/#extended-syntax):
+
+```markdown
+> [!TIP]- Click here to view the tips
+
+> [!TIP]+ Click here to view the tips
+```
+
+![usage-5](docs/assets/images/foldable-admonition.png)
 
 ## Customization
 

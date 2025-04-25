@@ -159,3 +159,13 @@ You can choose to only to show the header!
 > [!TIP] Use `Ctrl + C` to quickly terminate a running program
 
 > [!WARNING] Warning: This operation will delete all data
+
+## Foldable Admonitions
+
+> [!NOTE]- Here are the details regarding API usage:
+>
+> - **Endpoint**: `/api/v1/users` is used to fetch the user list.
+> - **Authentication**: A valid `Bearer` token must be provided in the request header.
+> - **Rate Limiting**: 100 requests are allowed per minute.
+
+> [!TIP]- Click here to view the tips
