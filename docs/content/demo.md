@@ -169,3 +169,9 @@ You can choose to only to show the header!
 > - **Rate Limiting**: 100 requests are allowed per minute.
 
 > [!TIP]- Click here to view the tips
+
+## Nested Admonitions
+
+> [!question] Can admonitions be nested?
+> > [!todo] Yes!, they can.
+> > > [!example]  You can even use multiple layers of nesting.

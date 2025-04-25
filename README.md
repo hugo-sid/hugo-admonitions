@@ -17,6 +17,7 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
     - [Dark Mode](#dark-mode)
     - [Header Only Mode](#header-only-mode)
     - [Foldable Admonitions](#foldable-admonitions)
+    - [Nested Admonitions](#nested-admonitions)
   - [Installation](#installation)
     - [Hugo Module](#hugo-module)
     - [Git Clone](#git-clone)
@@ -68,6 +69,10 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
 ### Foldable Admonitions
 
 ![foldable-admonition-overview](docs/assets/images/foldable-admonition-overview.png)
+
+### Nested Admonitions
+
+![nested-admonitions](docs/assets/images/nested-admonition.png)
 
 ## Installation
 
@@ -217,6 +222,16 @@ Use the [extended syntax](https://gohugo.io/render-hooks/blockquotes/#extended-s
 ```
 
 ![usage-5](docs/assets/images/foldable-admonition.png)
+
+You can use nested admonitions too:
+
+```markdown
+> [!QUESTION] Can admonitions be nested?
+> > [!TODO] Yes!, they can.
+> > > [!EXAMPLE]  You can even use multiple layers of nesting.
+```
+
+![nested-admonitions](docs/assets/images/nested-admonition.png)
 
 ## Customization
 
