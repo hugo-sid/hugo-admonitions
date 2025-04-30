@@ -27,6 +27,7 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
     - [Dark Mode Support](#dark-mode-support)
   - [Contributing](#contributing)
   - [License](#license)
+  - [Star History](#star-history)
 
 ## Features ✨
 
@@ -327,3 +328,13 @@ Contributions are welcome! Please feel free to submit a [Pull Request](https://g
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Star History
+
+<a href="https://www.star-history.com/#KKKZOZ/hugo-admonitions&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=KKKZOZ/hugo-admonitions&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=KKKZOZ/hugo-admonitions&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=KKKZOZ/hugo-admonitions&type=Date" />
+ </picture>
+</a>
