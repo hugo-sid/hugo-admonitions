@@ -152,7 +152,7 @@ Use the blockquote in this way:
 
 ![usage-1](docs/assets/images/usage-1.png)
 
-<details>
+<!-- <details>
 <summary>Available Callouts List</summary>
 
 - `[!ABSTRACT]`
@@ -176,6 +176,23 @@ Use the blockquote in this way:
 - `[!TASK]`
 - `[!TIP]`
 - `[!WARNING]`
+
+</details> -->
+
+<details>
+<summary>Available Callouts List</summary>
+
+| Alerts & Emphasis | Information & Elaboration | Guidance & Interaction |
+|-------------------|---------------------------|------------------------|
+| `[!DANGER]`       | `[!INFO]`                 | `[!TIP]`               |
+| `[!ERROR]`        | `[!NOTE]`                 | `[!TASK]`              |
+| `[!WARNING]`      | `[!ABSTRACT]`             | `[!GOAL]`              |
+| `[!CAUTION]`      | `[!CONCLUSION]`           | `[!IDEA]`              |
+| `[!IMPORTANT]`    | `[!EXAMPLE]`              | `[!QUESTION]`          |
+| `[!SUCCESS]`      | `[!QUOTE]`                | `[!NOTIFY]`            |
+|                   | `[!CODE]`                 |                        |
+|                   | `[!EXPERIMENT]`           |                        |
+|                   | `[!MEMO]`                 |                        |
 
 </details>
 
