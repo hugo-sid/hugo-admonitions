@@ -2,7 +2,15 @@
 // Hugo Admonitions Styling with Configurable Theme Colors and Dark Mode Selector
 
 // =============================================================================
-// --- Configuration (User Overridable) ---
+// --- User Customization Hook ---
+// =============================================================================
+// Import user-defined variables.
+// This imported file should define variables directly (e.g., $admonition-light-bg: #mycolor;)
+// or define $admonition-colors-overrides for merging type-specific colors.
+@import "admonitions-user-settings";
+
+// =============================================================================
+// --- Configuration (with !default) ---
 // =============================================================================
 
 // --- Dark Mode Activation ---
@@ -45,10 +53,11 @@ $admonition-dark-blockquote-border: #45475a !default; // Blockquote left border
 $admonition-light-header-bg-opacity: 0.1 !default; // Opacity for light mode background tint
 $admonition-dark-header-bg-opacity: 0.1 !default; // Opacity for dark mode background tint
 
-// =============================================================================
-// --- Base Type Colors (Module Internal) ---
-// =============================================================================
-$admonition-colors: (
+// User-provided map for overriding/adding specific admonition type colors.
+// Users should define '$admonition-colors-overrides' in their custom-variables file.
+$admonition-colors-overrides: () !default;
+
+$admonition-colors-base: (
   abstract: #209fb5,
   caution: #e64553,
   code: #7287fd,
@@ -72,6 +81,13 @@ $admonition-colors: (
   task: #8839ef,
   tip: #179299,
   warning: #df8e1d,
+) !default;
+
+// Merge base colors with user overrides to get the final color map.
+// User's overrides will take precedence.
+$admonition-colors: map-merge(
+  $admonition-colors-base,
+  $admonition-colors-overrides
 );
 
 // =============================================================================

@@ -23,8 +23,9 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
     - [Git Clone](#git-clone)
   - [Usage](#usage)
   - [Customization](#customization)
-    - [Admonition Colors](#admonition-colors)
+    - [Variable Overrides (Recommended)](#variable-overrides-recommended)
     - [Dark Mode Support](#dark-mode-support)
+    - [Advanced SCSS Override (Modifying Rendering Logic)](#advanced-scss-override-modifying-rendering-logic)
   - [Contributing](#contributing)
   - [License](#license)
   - [Star History](#star-history)
@@ -253,60 +254,86 @@ You can use nested admonitions too:
 
 ## Customization
 
-Please follow the instructions below to override the default styles.
+There are two main ways to customize the styles:
 
-1. Create a new Sass file.
+1. **Variable Overrides (Recommended for most users):** Modify colors, opacities, dark mode selectors, etc., by overriding SASS variables. **This method is update-friendly.**
+2. **Advanced SCSS Override:** For deep changes to the styling logic and CSS rules, you can override the main SCSS file.
 
-    Run these commands from the root of your project:
+### Variable Overrides (Recommended)
 
-    ```shell
-    mkdir -p assets/sass/vendors
-    touch assets/sass/vendors/_admonitions.scss
-    ```
+This is the simplest and most common way to customize admonition styles. You only need to create a single SASS file in your project to specify your custom variable values.
 
-    The resulting directory structure will look like this:
+1. **Create the user settings SASS file:**
 
-    ```text
-    your-hugo-project/
-    └── assets/
-        └── sass/
-            └── vendors/
-                └── _admonitions.scss
-    ```
+In your Hugo project's **root** directory, create the following file (including the directories if they don't exist): `assets/sass/vendors/_admonitions-user-settings.scss`
 
-2. Copy the contents of the [source file] into the file you created.
-3. Update the styles as needed.
+You can use these commands from the root of your project:
 
-### Admonition Colors
+```shell
+mkdir -p assets/sass/vendors
+touch assets/sass/vendors/_admonitions-user-settings.scss
+```
 
-The colors can easily updated by changing the first part of the file
+The resulting directory structure in your project will look like this:
 
-> With clear comments!
+```text
+your-hugo-project/
+└── assets/
+    └── sass/
+        └── vendors/
+            └── _admonitions-user-settings.scss  <-- Your custom settings file
+```
+
+2. **Define your custom variables in this file:**
+
+Open `assets/sass/vendors/_admonitions-user-settings.scss` and add your SASS variable overrides.
+
+> [This file](https://github.com/KKKZOZ/hugo-admonitions/blob/main/assets/sass/vendors/_admonitions-user-settings.scss) contains a minimal example.
+
+> [!IMPORTANT]
+> **Do not use `!default`** in this file for your overrides.
+
+In `_admonitions-user-settings.scss`, you can change these colors:
 
 ```scss
 // --- Theme Colors ---
 // Define the colors used for admonition elements in both light and dark modes.
 
 // Light Mode Colors
-$admonition-light-bg: #ffffff !default; // Content background
-$admonition-light-text: #000000 !default; // Content text
-$admonition-light-code-bg: #f5f5f5 !default; // Inline code & code block background
-$admonition-light-code-text: #24292e !default; // Inline code & code block text
-$admonition-light-blockquote-border: #e0e0e0 !default; // Blockquote left border
+$admonition-light-bg: #ffffff; // Content background
+$admonition-light-text: #000000; // Content text
+$admonition-light-code-bg: #f5f5f5; // Inline code & code block background
+$admonition-light-code-text: #24292e; // Inline code & code block text
+$admonition-light-blockquote-border: #e0e0e0; // Blockquote left border
 
 // Dark Mode Colors
-$admonition-dark-bg: #1d1e20 !default; // Content background
-$admonition-dark-text: #e6e6e6 !default; // Content text
-$admonition-dark-code-bg: #313244 !default; // Inline code & code block background
-$admonition-dark-code-text: #cdd6f4 !default; // Inline code & code block text
-$admonition-dark-blockquote-border: #45475a !default; // Blockquote left border
+$admonition-dark-bg: #1d1e20; // Content background
+$admonition-dark-text: #e6e6e6; // Content text
+$admonition-dark-code-bg: #313244; // Inline code & code block background
+$admonition-dark-code-text: #cdd6f4; // Inline code & code block text
+$admonition-dark-blockquote-border: #45475a; // Blockquote left border
 
 // --- Header Background Opacity ---
-// Controls the opacity of the background color tint in the header.
+// Controls the opacity of the background color tint applied to the whole admonition block.
 // Value should be between 0 (transparent) and 1 (opaque).
-$admonition-light-header-bg-opacity: 0.1 !default; // Opacity for light mode header background
-$admonition-dark-header-bg-opacity: 0.1 !default; // Opacity for dark mode header background (can be same or different)
+$admonition-light-header-bg-opacity: 0.1; // Opacity for light mode background tint
+$admonition-dark-header-bg-opacity: 0.1; // Opacity for dark mode background tint
 ```
+
+To change the colors for specific admonition types (like `note`, `tip`, `warning`), define the `$admonition-colors-overrides` SASS map. This map will be merged with the module's default type colors, with your definitions taking precedence.
+
+```scss
+// Example: assets/sass/vendors/_admonitions-user-settings.scss
+// --- Admonition Colors ---
+$admonition-colors-overrides: (
+  note: #007bff,       // Make 'note' admonitions blue
+  tip: #28a745,        // Make 'tip' admonitions green
+  warning: #ffc107,    // Make 'warning' admonitions yellow
+  danger: #dc3545,
+);
+```
+
+The default types and their base colors available for override can be found in the `$admonition-colors-base` map within the module's main `_admonitions.scss` file.
 
 ### Dark Mode Support
 
@@ -331,10 +358,41 @@ If your theme uses a *different* CSS class or data attribute not included in the
 
 **How to Customize the Dark Mode Trigger:**
 
-You can easily tell `hugo-admonitions` which selector(s) your theme uses by overriding the `$admonition-dark-selector` SCSS variable.
+You can easily tell `hugo-admonitions` which selector(s) your theme uses by overriding the `$admonition-dark-selector` SCSS variable in `_admonitions-user-settings.scss`.
 
 > [!NOTE]
 > If you encounter difficulties getting dark mode to work correctly with your specific theme, even after following these steps, or if anything in this guide is unclear, please don't hesitate to **open an [issue](https://github.com/KKKZOZ/hugo-admonitions/issues/new)**!
+
+### Advanced SCSS Override (Modifying Rendering Logic)
+
+If you need to make more fundamental changes to the admonition styles beyond what variables allow (e.g., altering CSS rules for structure, spacing, animations, or adding entirely new CSS), you will need to override the main `_admonitions.scss` file from the module.
+
+> [!CAUTION]
+> You will be responsible for merging any upstream changes from the module's `_admonitions.scss` into your overridden copy if you want to receive bug fixes or new SCSS features from the module.
+
+1. **Create a copy of the module's main SCSS file:**
+    In your Hugo project's root directory, create the following file:
+    `assets/sass/vendors/_admonitions.scss`
+
+    You can use these commands:
+
+    ```shell
+    mkdir -p assets/sass/vendors
+    touch assets/sass/vendors/_admonitions.scss
+    ```
+
+    The resulting directory structure in your project:
+
+    ```text
+    your-hugo-project/
+    └── assets/
+        └── sass/
+            └── vendors/
+                └── _admonitions.scss  <-- Your overridden main SCSS file
+    ```
+
+2. Copy the contents of the [source file] into the file you created.
+3. Update the styles as needed.
 
 [source file]: https://github.com/KKKZOZ/hugo-admonitions/blob/main/assets/sass/vendors/_admonitions.scss
 
