@@ -1,5 +1,7 @@
 # Hugo-admonitions
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/KKKZOZ/hugo-admonitions)
+
 A lightweight Hugo module that adds beautiful and customizable admonition blocks to your content.
 
 Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish/).
