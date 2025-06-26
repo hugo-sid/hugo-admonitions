@@ -9,6 +9,8 @@ Inspiration from [mdbook-admonish](https://tommilligan.github.io/mdbook-admonish
 > [!IMPORTANT]
 > The minimum required Hugo version is `0.140.0`. If you find that features work correctly locally but not on your deployed GitHub Pages site (e.g., admonition colors are wrong), the most likely reason is that the `HUGO_VERSION` specified in your GitHub Actions workflow file (usually under `.github/workflows/`) is lower than `0.140.0`.
 
+If you find this project useful, please consider giving it a star! ⭐
+
 ## Table of Contents
 
 - [Hugo-admonitions](#hugo-admonitions)
