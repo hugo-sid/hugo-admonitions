@@ -15,4 +15,7 @@
 // --- To override the dark mode selector: ---
 // $admonition-dark-selector: ('html[data-my-theme="dark"]');
 //
+//
+// --- To override the header text color: ---
+// $admonition-light-header-text-overrides: (danger: #ffffff, warning: #5c3a00);
 // Remember: Do NOT use !default in your override file for these variables.

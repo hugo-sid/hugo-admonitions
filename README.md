@@ -323,6 +323,14 @@ $admonition-dark-blockquote-border: #45475a; // Blockquote left border
 // Value should be between 0 (transparent) and 1 (opaque).
 $admonition-light-header-bg-opacity: 0.1; // Opacity for light mode background tint
 $admonition-dark-header-bg-opacity: 0.1; // Opacity for dark mode background tint
+
+// --- Header Text Colors (Per-Type Overrides) ---
+// Use the map to override header colors for specific admonition types.
+// This takes precedence over the default theme color.
+// Example:
+// $admonition-light-header-text-overrides: (danger: #ffffff, warning: #5c3a00);
+$admonition-light-header-text-overrides: () !default;
+$admonition-dark-header-text-overrides: () !default;
 ```
 
 To change the colors for specific admonition types (like `note`, `tip`, `warning`), define the `$admonition-colors-overrides` SASS map. This map will be merged with the module's default type colors, with your definitions taking precedence.
@@ -404,6 +412,8 @@ If you need to make more fundamental changes to the admonition styles beyond wha
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a [Pull Request](https://github.com/KKKZOZ/hugo-admonitions/pulls).
+
+Before you submit a pull request, please ensure that you have run `npm install`. This will install a husky hook that automatically checks if your commit messages adhere to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. Commit messages that do not meet this standard will not pass the automated checks for pull requests.
 
 ## License
 

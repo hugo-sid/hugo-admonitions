@@ -6,7 +6,7 @@
 // =============================================================================
 // Import user-defined variables.
 // This imported file should define variables directly (e.g., $admonition-light-bg: #mycolor;)
-// or define $admonition-colors-overrides for merging type-specific colors.
+// or define override maps like $admonition-colors-overrides.
 @import "admonitions-user-settings";
 
 // =============================================================================
@@ -49,6 +49,13 @@ $admonition-dark-text: #e6e6e6 !default; // Content text
 $admonition-dark-code-bg: #313244 !default; // Inline code & code block background
 $admonition-dark-code-text: #cdd6f4 !default; // Inline code & code block text
 $admonition-dark-blockquote-border: #45475a !default; // Blockquote left border
+
+// --- Header Text Colors (Per-Type Overrides) ---
+// Use the map to override header colors for specific admonition types.
+// This takes precedence over the default theme color.
+// Example: (danger: #ffffff, warning: #5c3a00)
+$admonition-light-header-text-overrides: () !default;
+$admonition-dark-header-text-overrides: () !default;
 
 // --- Header Background Opacity ---
 // Controls the opacity of the background color tint applied to the whole admonition block.
@@ -199,11 +206,18 @@ $admonition-colors: map-merge(
 
     // Target the DIRECT child header
     > .admonition-header {
-      // Set the header text color
-      color: $color;
-      // Explicitly set SVG fill color too
+      // Determine final header color with override priority:
+      // 1. Per-type override map
+      // 2. Default admonition type color
+      $type-specific-color: map-get(
+        $admonition-light-header-text-overrides,
+        $type
+      );
+      $final-color: if($type-specific-color, $type-specific-color, $color);
+
+      color: $final-color;
       svg {
-        fill: $color;
+        fill: $final-color;
       }
     }
 
@@ -246,12 +260,20 @@ $admonition-colors: map-merge(
 
       // Target the DIRECT child header
       > .admonition-header {
-        // Header text color ($color) from light mode rule usually works.
-        // Uncomment below to explicitly override for dark mode if needed (e.g., for contrast).
-        // color: mix($color, $admonition-dark-text, 80%);
-        // svg {
-        //   fill: mix($color, $admonition-dark-text, 80%);
-        // }
+        // Only apply a color if a dark-mode, per-type override exists.
+        // Otherwise, the color from the light mode rule will cascade.
+        $dark-type-specific-color: map-get(
+          $admonition-dark-header-text-overrides,
+          $type
+        );
+
+        // Only generate CSS if a dark mode override was found
+        @if $dark-type-specific-color {
+          color: $dark-type-specific-color;
+          svg {
+            fill: $dark-type-specific-color;
+          }
+        }
       }
 
       // Target the DIRECT child content
@@ -321,34 +343,3 @@ $admonition-colors: map-merge(
     transform: rotate(90deg); /* Rotate the chevron down */
   }
 }
-
-// --- Optional: Using SVG Icon Instead ---
-/*
-.admonition {
-  & > summary {
-    list-style: none;
-    &::-webkit-details-marker { display: none; }
-    cursor: pointer;
-
-    &::after { // Use ::after
-      content: "";
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      margin-left: 0.6em; // Use margin-left
-      background-color: currentColor;
-      mask-image: url("path/to/your/chevron-right.svg");
-      mask-size: contain;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      transition: transform 0.2s ease-in-out;
-      transform-origin: center;
-      vertical-align: middle;
-    }
-  }
-
-  &[open] > summary::after { // Target ::after
-    transform: rotate(90deg);
-  }
-}
-*/
