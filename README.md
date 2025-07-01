@@ -28,6 +28,9 @@ If you find this project useful, please consider giving it a star! ⭐
   - [Usage](#usage)
   - [Customization](#customization)
     - [Variable Overrides (Recommended)](#variable-overrides-recommended)
+      - [Global Theme Colors](#global-theme-colors)
+      - [Admonition Type Base Colors](#admonition-type-base-colors)
+      - [Header Text \& Icon Colors (Per-Type Override)](#header-text--icon-colors-per-type-override)
     - [Dark Mode Support](#dark-mode-support)
     - [Advanced SCSS Override (Modifying Rendering Logic)](#advanced-scss-override-modifying-rendering-logic)
   - [Contributing](#contributing)
@@ -289,64 +292,96 @@ your-hugo-project/
             └── _admonitions-user-settings.scss  <-- Your custom settings file
 ```
 
-2. **Define your custom variables in this file:**
+2. **Define your custom variables in this file**
 
 Open `assets/sass/vendors/_admonitions-user-settings.scss` and add your SASS variable overrides.
 
-> [This file](https://github.com/KKKZOZ/hugo-admonitions/blob/main/assets/sass/vendors/_admonitions-user-settings.scss) contains a minimal example.
+> [This file](https://github.com/KKKZOZ/hugo-admonitions/blob/main/assets/sass/vendors/_admonitions-user-settings.scss) contains a minimal example to get you started.
 
 > [!IMPORTANT]
-> **Do not use `!default`** in this file for your overrides.
+> **Do not use `!default`** in this file for your overrides. Your definitions here will automatically take precedence over the module's defaults.
 
-In `_admonitions-user-settings.scss`, you can change these colors:
+In `_admonitions-user-settings.scss`, you have several levels of customization available:
+
+#### Global Theme Colors
+
+You can override the general colors for all admonitions in both light and dark modes. These variables control the background, text, and code block colors.
 
 ```scss
+// assets/sass/vendors/_admonitions-user-settings.scss
+
 // --- Theme Colors ---
 // Define the colors used for admonition elements in both light and dark modes.
 
 // Light Mode Colors
-$admonition-light-bg: #ffffff; // Content background
-$admonition-light-text: #000000; // Content text
-$admonition-light-code-bg: #f5f5f5; // Inline code & code block background
-$admonition-light-code-text: #24292e; // Inline code & code block text
-$admonition-light-blockquote-border: #e0e0e0; // Blockquote left border
+$admonition-light-bg: #ffffff;                 // Content background
+$admonition-light-text: #000000;                // Content text
+$admonition-light-code-bg: #f5f5f5;             // Inline code & code block background
+$admonition-light-code-text: #24292e;           // Inline code & code block text
+$admonition-light-blockquote-border: #e0e0e0;  // Blockquote left border
 
 // Dark Mode Colors
-$admonition-dark-bg: #1d1e20; // Content background
-$admonition-dark-text: #e6e6e6; // Content text
-$admonition-dark-code-bg: #313244; // Inline code & code block background
-$admonition-dark-code-text: #cdd6f4; // Inline code & code block text
-$admonition-dark-blockquote-border: #45475a; // Blockquote left border
+$admonition-dark-bg: #1d1e20;                   // Content background
+$admonition-dark-text: #e6e6e6;                 // Content text
+$admonition-dark-code-bg: #313244;              // Inline code & code block background
+$admonition-dark-code-text: #cdd6f4;            // Inline code & code block text
+$admonition-dark-blockquote-border: #45475a;   // Blockquote left border
 
 // --- Header Background Opacity ---
 // Controls the opacity of the background color tint applied to the whole admonition block.
 // Value should be between 0 (transparent) and 1 (opaque).
-$admonition-light-header-bg-opacity: 0.1; // Opacity for light mode background tint
-$admonition-dark-header-bg-opacity: 0.1; // Opacity for dark mode background tint
-
-// --- Header Text Colors (Per-Type Overrides) ---
-// Use the map to override header colors for specific admonition types.
-// This takes precedence over the default theme color.
-// Example:
-// $admonition-light-header-text-overrides: (danger: #ffffff, warning: #5c3a00);
-$admonition-light-header-text-overrides: () !default;
-$admonition-dark-header-text-overrides: () !default;
+$admonition-light-header-bg-opacity: 0.1;       // Opacity for light mode background tint
+$admonition-dark-header-bg-opacity: 0.1;        // Opacity for dark mode background tint
 ```
 
-To change the colors for specific admonition types (like `note`, `tip`, `warning`), define the `$admonition-colors-overrides` SASS map. This map will be merged with the module's default type colors, with your definitions taking precedence.
+#### Admonition Type Base Colors
+
+To change the base color for specific admonition types (e.g., `note`, `tip`, `warning`), define the `$admonition-colors-overrides` SASS map. This color is used for the left border and as a base for the tinted background. It also serves as the default color for the header text and icon.
+
+This map will be merged with the module's default type colors, with your definitions taking precedence.
 
 ```scss
 // Example: assets/sass/vendors/_admonitions-user-settings.scss
-// --- Admonition Colors ---
+
+// --- Admonition Type Base Colors ---
+// Override the default color for specific admonition types.
 $admonition-colors-overrides: (
-  note: #007bff,       // Make 'note' admonitions blue
-  tip: #28a745,        // Make 'tip' admonitions green
-  warning: #ffc107,    // Make 'warning' admonitions yellow
-  danger: #dc3545,
+  note: #007bff,      // Make 'note' admonitions blue
+  tip: #28a745,       // Make 'tip' admonitions green
+  warning: #ffc107,   // Make 'warning' admonitions yellow
+  danger: #dc3545
 );
 ```
 
-The default types and their base colors available for override can be found in the `$admonition-colors-base` map within the module's main `_admonitions.scss` file.
+The default types and their base colors can be found in the `$admonition-colors-base` map within the module's main `_admonitions.scss` file.
+
+#### Header Text & Icon Colors (Per-Type Override)
+
+For more granular control, you can specifically override the header text and icon color for different admonition types in both light and dark modes. This is useful when the base color (from `$admonition-colors` or your override) doesn't provide enough contrast with the tinted background.
+
+Define your overrides in the `$admonition-light-header-text-overrides` and `$admonition-dark-header-text-overrides` maps.
+
+```scss
+// Example: assets/sass/vendors/_admonitions-user-settings.scss
+
+// --- Header Text & Icon Color Overrides ---
+// Use these maps to set a specific header text color for certain admonition types,
+// overriding the default behavior.
+
+$admonition-light-header-text-overrides: (
+  // In light mode, the yellow 'warning' admonition base color (#ffc107)
+  // is too light for text. Let's make the header text darker for better readability.
+  warning: #a37100
+);
+
+$admonition-dark-header-text-overrides: (
+  // In dark mode, the default header text for 'danger' might be its base color (#dc3545),
+  // which can be hard to read on a dark tinted background. We can brighten it up.
+  danger: #ff9e8f,
+  // Let's also make the 'note' header text white in dark mode for high contrast.
+  note: #ffffff
+);
+```
 
 ### Dark Mode Support
 
